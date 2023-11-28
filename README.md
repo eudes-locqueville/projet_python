@@ -9,6 +9,4 @@ Parmi les visualisations mises en place, le dashboard permet à l'utilisateur de
 
 On peut en outre faire figurer les gains d'argent qu'apporterait une rénovation énergétique en fonction du moyen de chauffage et en lien avec le coût des matières premières.
 
-
-ghghgh
 L
