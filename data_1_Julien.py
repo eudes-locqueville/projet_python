@@ -31,7 +31,7 @@ if response.status_code == 200:
     for column in schema_data:
         column= pd.DataFrame.from_dict(column, orient='index')
         df= pd.concat([df,column], axis=1)
-    df.to_excel("data_1_Julien.xlsx")
+    df.to_excel("read_data.xlsx")
 
 else:
     # Afficher un message d'erreur si la requête a échoué
