@@ -22,7 +22,7 @@ if response.status_code == 200:
 else:
     # Afficher un message d'erreur si la requête a échoué
     print(f"Erreur {response.status_code}: {response.text}")
-'''
+
 
 import requests
 
@@ -34,7 +34,7 @@ def obtenir_valeurs_distinctes(liste):
         api_url = f"https://koumoul.com/data-fair/api/v1/datasets/dpe-france/values/{column_name}"
 
         # Paramètres de requête (sans filtre)
-        params = {"limit": 10}
+        params = {"limit": "30"}
 
         # Faire une requête GET à l'API
         response = requests.get(api_url, params=params)
@@ -55,3 +55,5 @@ def obtenir_valeurs_distinctes(liste):
 
 # Appeler la fonction avec la liste de colonnes pertinentes
 obtenir_valeurs_distinctes(colonnes_pertinentes)
+'''
+
