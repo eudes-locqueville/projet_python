@@ -1,4 +1,5 @@
 import requests
+import pandas as pd
 '''
 url = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-france/api-docs.json"
 
@@ -10,10 +11,10 @@ if response.status_code == 100:
     print(data)
 else:
     # La requête a échoué
-    print(f"Erreur {response.status_code}: {response.text}")
+    print(f"Erreur {response.status_code}: {response.text}")'''
 
 import requests
-
+df=pd.DataFrame()
 # URL de l'API endpoint pour récupérer la liste des colonnes
 api_url = "https://koumoul.com/data-fair/api/v1/datasets/dpe-france/safe-schema"
 
@@ -28,14 +29,16 @@ if response.status_code == 200:
     # Afficher la liste des colonnes
     print("Liste des colonnes:")
     for column in schema_data:
-        print(column)
+        column= pd.DataFrame.from_dict(column, orient='index')
+        df= pd.concat([df,column], axis=1)
+    df.to_excel("data_1_Julien.xlsx")
 
 else:
     # Afficher un message d'erreur si la requête a échoué
     print(f"Erreur {response.status_code}: {response.text}")
-'''
 
-import requests
+
+'''import requests
 
 # Nom de la colonne que vous souhaitez explorer
 column_name = "tr001_modele_dpe_type_libelle"
@@ -61,4 +64,4 @@ if response.status_code == 200:
 
 else:
     # Afficher un message d'erreur si la requête a échoué
-    print(f"Erreur {response.status_code}: {response.text}")
+    print(f"Erreur {response.status_code}: {response.text}")'''
