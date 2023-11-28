@@ -11,10 +11,10 @@ if response.status_code == 100:
     print(data)
 else:
     # La requête a échoué
-    print(f"Erreur {response.status_code}: {response.text}")'''
-
+    print(f"Erreur {response.status_code}: {response.text}")
+'''
 import requests
-df=pd.DataFrame()
+
 # URL de l'API endpoint pour récupérer la liste des colonnes
 api_url = "https://koumoul.com/data-fair/api/v1/datasets/dpe-france/safe-schema"
 
@@ -36,9 +36,9 @@ if response.status_code == 200:
 else:
     # Afficher un message d'erreur si la requête a échoué
     print(f"Erreur {response.status_code}: {response.text}")
+'''
 
-
-'''import requests
+import requests
 
 # Nom de la colonne que vous souhaitez explorer
 column_name = "tr001_modele_dpe_type_libelle"
@@ -64,4 +64,5 @@ if response.status_code == 200:
 
 else:
     # Afficher un message d'erreur si la requête a échoué
-    print(f"Erreur {response.status_code}: {response.text}")'''
+    print(f"Erreur {response.status_code}: {response.text}")
+'''
