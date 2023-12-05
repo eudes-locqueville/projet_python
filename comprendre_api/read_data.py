@@ -1,6 +1,6 @@
 import requests
 import pandas as pd
-'''
+
 # URL de l'API endpoint pour récupérer la liste des colonnes
 api_url = "https://koumoul.com/data-fair/api/v1/datasets/dpe-france/safe-schema"
 
@@ -11,7 +11,8 @@ response = requests.get(api_url)
 if response.status_code == 200:
     # Convertir la réponse JSON en une liste Python
     schema_data = response.json()
-
+  # Initialiser un DataFrame vide
+    df = pd.DataFrame()
     # Afficher la liste des colonnes
     print("Liste des colonnes:")
     for column in schema_data:
@@ -55,5 +56,5 @@ def obtenir_valeurs_distinctes(liste):
 
 # Appeler la fonction avec la liste de colonnes pertinentes
 obtenir_valeurs_distinctes(colonnes_pertinentes)
-'''
+
 
