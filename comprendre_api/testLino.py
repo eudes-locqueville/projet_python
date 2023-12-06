@@ -1,24 +1,27 @@
 import requests
-import random
+import pandas as pd
 
-# Lien de l'API
-api_url = "https://koumoul.com/data-fair/api/v1/datasets/dpe-france/lines?sort=_id&select=consommation_energie%2Cannee_construction%2Ccode_insee_commune_actualise%2C_id&format=json200"
+# Définir l'URL de l'API
+api_url = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-france"
 
-# Effectuer la requête HTTP
-response = requests.get(api_url)
+# Définir les paramètres de la requête
+params = {
+    'field': 'nom_methode_dpe',
+    'size': 10,
+    'q': 'recherche_textuelle',
+    'q_mode': 'simple',
+    # Ajoute d'autres paramètres selon tes besoins
+}
+
+# Effectuer la requête à l'API
+response = requests.get(api_url, params=params)
 
 # Vérifier si la requête a réussi (code 200)
 if response.status_code == 200:
-    # Charger les données JSON
+    # Convertir la réponse JSON en un DataFrame
     data = response.json()
-
-    # Prélever un échantillon de 30 éléments
-    sample_size = 30
-    sample = random.sample(data, min(sample_size, len(data)))
-
-    # Afficher l'échantillon
-    for item in sample:
-        print(item)
-
+    df = pd.DataFrame(data['results'])
+    # Afficher le DataFrame
+    print(df)
 else:
-    print(f"Erreur lors de la requête : {response.status_code}")
+    print(f"Erreur lors de la requête à l'API. Code d'erreur : {response.status_code}")
