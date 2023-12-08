@@ -4,14 +4,14 @@ import pandas as pd
 # Définissez vos contraintes, les colonnes pertinentes, et les filtres
 params_lines = {
     "page": 1,
-    "size": 20,
+    "size": 3000,
     "select": ",".join([
         "_id", "consommation_energie", "classe_consommation_energie",
         "estimation_ges", "classe_estimation_ges",
         "annee_construction", "tr002_type_batiment_description",
         "code_insee_commune_actualise", "geo_adresse"
     ]),
-    "q": "code_insee_commune_actualise:01430",
+    "q": "code_insee_commune_actualise:91477",
     # Si nécessaire, utilisez le paramètre "qs" pour des requêtes plus complexes
 }
 
@@ -40,7 +40,7 @@ if response_lines.status_code == 200:
     ])
 
     # Enregistrez le DataFrame au format Excel avec le nom de fichier 'donnees_associées.xlsx'
-    df.to_excel('donnees_associées.xlsx', index=False)
+    df.to_excel('liste_finale.xlsx', index=False)
 
     # Affichez le DataFrame final
     print(df)
