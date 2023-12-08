@@ -6,7 +6,7 @@ params_lines = {
     "page": 1,
     "size": 3000,
     "select": ",".join([
-        "_id", "consommation_energie", "classe_consommation_energie",
+        "_id", "consommation_energie", "classe_consommation_energie", "surface_thermique_lot",
         "estimation_ges", "classe_estimation_ges",
         "annee_construction", "tr002_type_batiment_description",
         "code_insee_commune_actualise", "geo_adresse"
@@ -29,6 +29,7 @@ if response_lines.status_code == 200:
             'consommation_energie': entry.get('consommation_energie'),
             'classe_consommation_energie': entry.get('classe_consommation_energie'),
             'estimation_ges': entry.get('estimation_ges'),
+            'surface_thermique_lot': entry.get('surface_thermique_lot'),
             'classe_estimation_ges': entry.get('classe_estimation_ges'),
             'annee_construction': entry.get('annee_construction'),
             'tr002_type_batiment_description': entry.get('tr002_type_batiment_description'),
