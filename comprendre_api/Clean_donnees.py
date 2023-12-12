@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from Efficace import liste_donnees
+from Extracteur_Donnees import liste_donnees
 
 def liste_propre():
 
