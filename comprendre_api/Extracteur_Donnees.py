@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 
-def liste_donnees():
+def liste_donnees(code_commune):
     # Définissez vos contraintes, les colonnes pertinentes, et les filtres
     params_lines = {
         "page": 1,
@@ -12,7 +12,7 @@ def liste_donnees():
             "annee_construction", "tr002_type_batiment_description",
             "code_insee_commune_actualise", "geo_adresse"
         ]),
-        "q": "code_insee_commune_actualise:91477",
+        "q": f"code_insee_commune_actualise:{code_commune}",
         # Si nécessaire, utilisez le paramètre "qs" pour des requêtes plus complexes
     }
 
@@ -42,10 +42,14 @@ def liste_donnees():
         ])
 
         # Enregistrez le DataFrame au format Excel avec le nom de fichier 'donnees_associées.xlsx'
-        df.to_excel('liste_finale.xlsx', index=False)
+        df.to_excel(f'liste_finale_{code_commune}.xlsx', index=False)
 
         # Affichez le DataFrame final
         return df
 
     else:
         return f"Erreur {response_lines.status_code}: {response_lines.text}"
+
+# Exemple d'utilisation avec le code commune 91477
+result_df = liste_donnees("91477")
+print(result_df)
