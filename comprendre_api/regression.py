@@ -10,7 +10,7 @@ from sklearn.preprocessing import StandardScaler
 df = liste_propre(code_commune=None, taille_echantillon=10000)
 
 # Les colonnes à utiliser pour la régression
-features = ['consommation_energie', "estimation_ges", "classe_estimation_ges", "annee_construction"]
+features = ['consommation_surface_ratio', 'consommation_energie', 'surface_thermique_lot', "estimation_ges", "classe_estimation_ges", "annee_construction"]
 
 # La colonne à prédire (cible)
 target = "classe_consommation_energie"
@@ -36,9 +36,29 @@ model.fit(train_data_scaled, train_target)
 # Prédiction sur l'ensemble de test normalisé
 predictions = model.predict(test_data_scaled)
 
+# Arrondir les prédictions à l'entier le plus proche et limiter à la plage [1, 7]
+rounded_predictions = np.clip(np.round(predictions), 1, 7)
+
 # Évaluation de la performance du modèle (par exemple, erreur quadratique moyenne)
-mse = mean_squared_error(test_target, predictions)
+mse = mean_squared_error(test_target, rounded_predictions)
 print(f'Erreur quadratique moyenne : {mse}')
 
 # Vous pouvez également imprimer les coefficients du modèle
 print('Coefficients du modèle :', model.coef_)
+
+# Convertir les prédictions en classes (arrondir à l'entier le plus proche)
+rounded_predictions = np.round(predictions).astype(int)
+
+# Comparer les valeurs prédites arrondies avec les valeurs réelles
+correct_predictions = (rounded_predictions == test_target)
+
+# Calculer la proportion des estimations correctes
+accuracy = correct_predictions.sum() / len(correct_predictions)
+print(f'Proportion des estimations correctes : {accuracy}')
+
+# Comparer les valeurs prédites avec les valeurs réelles avec une tolérance de 1
+close_predictions = np.abs(predictions - test_target) <= 1
+
+# Calculer la proportion des estimations correctes ou à 1 d'écart
+close_accuracy = close_predictions.sum() / len(close_predictions)
+print(f'Proportion des estimations correctes ou à 1 d\'écart : {close_accuracy}')

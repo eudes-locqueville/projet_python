@@ -11,10 +11,11 @@ def liste_propre(code_commune=None, taille_echantillon=3000):
 
     # Remplacer les lettres par les chiffres dans les colonnes spécifiées, les autres valeurs par NaN
     for col in ['classe_consommation_energie', 'classe_estimation_ges']:
-        tableau_propre[col] = tableau_propre[col].map(correspondance).fillna(tableau_propre[col])
+        tableau_propre[col] = tableau_propre[col].map(correspondance).where(
+            tableau_propre[col].isin(correspondance.keys())
+        )
 
-    
-    # Ajouter la colonne "consommation/surface"
+    tableau_propre.replace('N', np.nan, inplace=True)  # Remplacer 'N' par NaN
     tableau_propre.replace(0, np.nan, inplace=True)
     tableau_propre = tableau_propre.dropna()
     tableau_propre['consommation_surface_ratio'] = tableau_propre['consommation_energie'] / tableau_propre['surface_thermique_lot']
@@ -22,4 +23,5 @@ def liste_propre(code_commune=None, taille_echantillon=3000):
     # Afficher le DataFrame après les remplacements
     return tableau_propre
 
-print(liste_propre().head(10))
+# Appeler la fonction
+df = liste_propre()
