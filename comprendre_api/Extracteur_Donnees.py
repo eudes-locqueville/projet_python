@@ -1,11 +1,11 @@
 import requests
 import pandas as pd
 
-def liste_donnees(code_commune=None):
+def liste_donnees(code_commune=None,taille_echantillon=3000):
     # liste_donnees prend par défaut aucune condition donc on pioche dans la France, on peut aussi imposer une condition de code postal
     params_lines = {
         "page": 1,
-        "size": 3000,
+        "size": taille_echantillon,
         "select": ",".join([
             "_id", "consommation_energie", "classe_consommation_energie", "surface_thermique_lot",
             "estimation_ges", "classe_estimation_ges",
