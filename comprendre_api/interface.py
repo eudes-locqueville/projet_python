@@ -1,22 +1,27 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler
+import joblib
 
-# Charger le modèle préalablement entraîné
-# Note : Assurez-vous d'avoir votre modèle sauvegardé et prêt à être chargé ici
-# model = load_model()
+# Charger le scaler préalablement entraîné
+scaler = joblib.load("scaler.pkl")
 
 # Fonction pour prédire la lettre DPE en fonction de la surface et de la consommation_energie
 def predict_dpe(surface, consommation_energie):
-    # Prétraiter les entrées si nécessaire
-    # ...
+    # Normaliser les données d'entrée
+    input_data = scaler.transform([[consommation_energie, surface]])
 
-    # Faire la prédiction avec le modèle
-    # Note : Remplacez cette partie par la prédiction réelle avec votre modèle
-    prediction = "C"  # Exemple : Remplacez par votre prédiction réelle
+    # Appliquer la formule de régression linéaire
+    prediction = 1.17 * input_data[0, 0] - 0.06 * input_data[0, 1]
 
-    return prediction
+    # Inverser la normalisation sur la prédiction
+    prediction = scaler.inverse_transform([[0, prediction]])[0, 1]
+
+    # Arrondir la prédiction à l'entier le plus proche et limiter à la plage [1, 7]
+    rounded_prediction = np.clip(np.round(prediction), 1, 7)
+
+    return rounded_prediction
 
 # Interface Streamlit
 def main():

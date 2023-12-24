@@ -5,12 +5,16 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import StandardScaler
+import joblib
+
 
 # Obtenez le DataFrame à partir de la fonction liste_propre
 df = pd.concat([liste_propre(code_commune=None, taille_echantillon=10000),liste_propre(code_commune=None, taille_echantillon=10000),liste_propre(code_commune=None, taille_echantillon=10000),liste_propre(code_commune=None, taille_echantillon=10000)],axis=0, ignore_index=True)
 
 # Les colonnes à utiliser pour la régression
-features = ['consommation_surface_ratio', 'consommation_energie', 'surface_thermique_lot', "estimation_ges", "classe_estimation_ges", "annee_construction"]
+#features = ['consommation_surface_ratio', 'consommation_energie', 'surface_thermique_lot', "estimation_ges", "classe_estimation_ges", "annee_construction"]
+
+features = ['consommation_energie', 'surface_thermique_lot']
 
 # La colonne à prédire (cible)
 target = "classe_consommation_energie"
@@ -62,3 +66,5 @@ close_predictions = np.abs(predictions - test_target) <= 1
 # Calculer la proportion des estimations correctes ou à 1 d'écart
 close_accuracy = close_predictions.sum() / len(close_predictions)
 print(f'Proportion des estimations correctes ou à 1 d\'écart : {close_accuracy}')
+
+joblib.dump(scaler, 'scaler.pkl')
