@@ -36,12 +36,12 @@ def liste_donnees(code_commune=None,taille_echantillon=3000):
                 'code_insee_commune_actualise': entry.get('code_insee_commune_actualise'),
                 'geo_adresse': entry.get('geo_adresse'),
                 'td006_batiment_id': entry.get('td006_batiment_id'),
-                'longueur': entry.get('longueur'),
-                'tv013_valeur_pont_thermique_id': entry.get('tv013_valeur_pont_thermique_id'),
-                'Code_ Pont_Thermique' : entry.get('Code_ Pont_Thermique'),
-                'result_label' : entry.get('result_label'),
-                'result_score' : entry.get('result_score'),
-                'tr004_type_energie_id ' : entry.get('tr004_type_energie_id')
+                # 'longueur': entry.get('longueur'),
+                # 'tv013_valeur_pont_thermique_id': entry.get('tv013_valeur_pont_thermique_id'),
+                # 'Code_ Pont_Thermique' : entry.get('Code_ Pont_Thermique'),
+                # 'result_label' : entry.get('result_label'),
+                # 'result_score' : entry.get('result_score'),
+                # 'tr004_type_energie_id ' : entry.get('tr004_type_energie_id')
                 # Ajoutez d'autres colonnes pertinentes selon vos besoins
             }
             for entry in data_lines['results']
