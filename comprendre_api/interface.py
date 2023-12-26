@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 import joblib
 
 # Charger le scaler préalablement entraîné
-scaler = joblib.load("scaler.pkl")
+scaler = joblib.load("/Users/eudeslocqueville/Documents/ENSAE/M1_S1/PYTHON/projet_python/comprendre_api/scaler.pkl")
 
 # Fonction pour prédire la lettre DPE en fonction de la surface et de la consommation_energie
 def predict_dpe(surface, consommation_energie):
