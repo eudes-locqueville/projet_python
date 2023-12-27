@@ -9,7 +9,12 @@ import joblib
 
 
 # Obtenez le DataFrame à partir de la fonction liste_propre
-df = pd.concat([liste_propre(code_commune=None, taille_echantillon=10000),liste_propre(code_commune=None, taille_echantillon=10000),liste_propre(code_commune=None, taille_echantillon=10000),liste_propre(code_commune=None, taille_echantillon=10000)],axis=0, ignore_index=True)
+df = pd.concat([liste_propre(code_commune=None, taille_echantillon=10000),
+                liste_propre(code_commune=None, taille_echantillon=10000),
+                liste_propre(code_commune=None, taille_echantillon=10000),
+                liste_propre(code_commune=None, taille_echantillon=10000)],
+                axis=0, 
+                ignore_index=True)
 
 # Les colonnes à utiliser pour la régression
 #features = ['consommation_surface_ratio', 'consommation_energie', 'surface_thermique_lot', "estimation_ges", "classe_estimation_ges", "annee_construction"]
