@@ -2,3 +2,5 @@ numpy
 pandas
 geopandas
 plotly
+plotly_express
+plotly
