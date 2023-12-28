@@ -3,4 +3,9 @@ pandas
 geopandas
 plotly
 plotly_express
-plotlyrequests
+streamlit
+scikit-learn-preprocessing
+joblib
+scikit-learn-metrics
+scikit-learn-linear-model
+scikit-learn-model-selection
