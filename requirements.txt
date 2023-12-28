@@ -4,8 +4,5 @@ geopandas
 plotly
 plotly_express
 streamlit
-scikit-learn-preprocessing
+scikit-learn
 joblib
-scikit-learn-metrics
-scikit-learn-linear-model
-scikit-learn-model-selection
