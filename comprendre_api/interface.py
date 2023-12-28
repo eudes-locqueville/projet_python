@@ -5,44 +5,13 @@ from sklearn.preprocessing import StandardScaler
 import joblib
 import plotly.express as px
 from Clean_donnees import liste_propre
+from regression import predict_dpe
+from graph_test import testgraph
 
 # Charger le scaler préalablement entraîné
 scaler_path = "scaler.pkl"
 scaler = joblib.load(scaler_path)
 
-# Fonction pour prédire la lettre DPE en fonction de la surface et de la consommation_energie
-def predict_dpe(surface, consommation_energie):
-    # Normaliser les données d'entrée
-    input_data = scaler.transform([[consommation_energie, surface]])
-
-    # Appliquer la formule de régression linéaire
-    prediction = 1.17 * input_data[0, 0] - 0.06 * input_data[0, 1]
-
-    # Inverser la normalisation sur la prédiction
-    prediction = scaler.inverse_transform([[0, prediction]])[0, 1]
-
-    # Arrondir la prédiction à l'entier le plus proche et limiter à la plage [1, 7]
-    rounded_prediction = np.clip(np.round(prediction), 1, 7)
-
-    return rounded_prediction
-
-# Fonction pour générer la figure avec Plotly
-def testgraph(code_commune=None, taille_echantillon=3000):
-    data = liste_propre(code_commune, taille_echantillon)
-    value_counts = data['classe_consommation_energie'].value_counts().reset_index()
-    value_counts.columns = ['classe_consommation_energie', 'Count']
-
-    fig = px.bar(value_counts, 
-                 x='classe_consommation_energie', 
-                 y='Count', 
-                 title='Value Counts of classe_consommation_energie',
-                 template='plotly_dark',
-                 color_discrete_sequence=['#F63366'],
-                 opacity=0.8,
-                 width=800,
-                 height=500)
-    
-    return fig
 
 # Interface Streamlit
 def main():

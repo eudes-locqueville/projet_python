@@ -73,3 +73,19 @@ close_accuracy = close_predictions.sum() / len(close_predictions)
 print(f'Proportion des estimations correctes ou à 1 d\'écart : {close_accuracy}')
 
 joblib.dump(scaler, 'scaler.pkl')
+
+# Fonction pour prédire la lettre DPE en fonction de la surface et de la consommation_energie
+def predict_dpe(surface, consommation_energie):
+    # Normaliser les données d'entrée
+    input_data = scaler.transform([[consommation_energie, surface]])
+
+    # Appliquer la formule de régression linéaire
+    prediction = 1.17 * input_data[0, 0] - 0.06 * input_data[0, 1]
+
+    # Inverser la normalisation sur la prédiction
+    prediction = scaler.inverse_transform([[0, prediction]])[0, 1]
+
+    # Arrondir la prédiction à l'entier le plus proche et limiter à la plage [1, 7]
+    rounded_prediction = np.clip(np.round(prediction), 1, 7)
+
+    return rounded_prediction
