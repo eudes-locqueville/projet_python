@@ -2,7 +2,11 @@ numpy
 pandas
 geopandas
 plotly
+requests
 plotly_express
+xgboost
+matplotlib 
+descartes
 streamlit
 scikit-learn
 joblib
