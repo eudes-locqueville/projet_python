@@ -2,4 +2,5 @@ numpy
 pandas
 geopandas
 plotly
-requests
+plotly_express
+plotlyrequests
