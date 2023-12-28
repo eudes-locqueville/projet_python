@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from comprendre_api.Extracteur_Donnees import liste_donnees
+from Extracteur_Donnees import liste_donnees
 
 def liste_propre(code_commune=None, taille_echantillon=3000):
 
