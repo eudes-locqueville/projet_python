@@ -6,6 +6,9 @@ import plotly.graph_objs as go
 
 def filter_data_by_year(data, year):
     datac = data.copy()
+    if year is not None and year.isdigit():
+        year = int(year)
+    datac['annee_construction'] = datac['annee_construction'].astype(int)
     if year is not None:
         # Filtrer les données en fonction de l'année fournie
         if year <= 1945:
@@ -18,6 +21,7 @@ def filter_data_by_year(data, year):
             datac = datac[datac['annee_construction'] > 2000]
 
     return datac
+
 
 def testgraph(code_commune=None, taille_echantillon=3000):
     data = liste_propre(code_commune, taille_echantillon)
@@ -43,7 +47,6 @@ def testgraph(code_commune=None, taille_echantillon=3000):
 # Nouvelle fonction pour la visualisation par année de construction
 def par_annee(code_commune=None, taille_echantillon=3000, year=None):
     data = liste_propre(code_commune, taille_echantillon)
-
     # Filtrer les données en fonction de l'année de construction
     data = filter_data_by_year(data, year)
 

@@ -33,7 +33,7 @@ def main():
 
         # Afficher le graphique global en France
         st.subheader("Graphique France")
-        fig_france = testgraph(code_commune=code_commune)  # Utiliser testgraph avec ou sans code commune
+        fig_france = testgraph()  # Utiliser testgraph avec ou sans code commune
         st.plotly_chart(fig_france)
 
         # Afficher le graphique en fonction du département
