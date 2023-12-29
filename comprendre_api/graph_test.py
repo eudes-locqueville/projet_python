@@ -4,6 +4,22 @@ from Clean_donnees import liste_propre
 import streamlit as st
 import plotly.graph_objs as go
 
+def get_lettre_dpe(consommation_energie):
+    if consommation_energie < 50:
+        return 'A'
+    elif 51 <= consommation_energie <= 90:
+        return 'B'
+    elif 91 <= consommation_energie <= 150:
+        return 'C'
+    elif 151 <= consommation_energie <= 230:
+        return 'D'
+    elif 231 <= consommation_energie <= 330:
+        return 'E'
+    elif 331 <= consommation_energie <= 450:
+        return 'F'
+    else:
+        return 'G'
+
 def filter_data_by_year(data, year):
     datac = data.copy()
     if year is not None and year.isdigit():
@@ -56,3 +72,4 @@ def par_annee(code_commune=None, taille_echantillon=3000, year=None):
                  labels={'Percentage': 'Percentage'})
 
     return go.Figure(fig)
+

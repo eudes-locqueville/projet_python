@@ -5,7 +5,7 @@ import joblib
 import plotly.express as px
 from Clean_donnees import liste_propre
 from regression import predict_dpe
-from graph_test import testgraph, par_annee, filter_data_by_year
+from graph_test import testgraph, par_annee, filter_data_by_year, get_lettre_dpe
 
 # Charger le scaler préalablement entraîné
 scaler_path = "scaler.pkl"
@@ -13,11 +13,12 @@ scaler = joblib.load(scaler_path)
 
 # Interface Streamlit
 def main():
-    st.title("Prédiction de la classe de consommation d'énergie de votre logement et comparaison par rapport aux autres biens immobiliers")
+    st.title("Prédiction de la classe de votre logement et comparaison par rapport aux autres biens immobiliers")
 
     # Saisie utilisateur
     surface = st.slider("Surface du logement (m²)", 10, 300, 100)
-    consommation_energie = st.slider("Consommation énergétique annuelle en kilo Watt heure d'énergie primaire, par m² et par an", 50, 1000, 500)
+    consommation = st.slider("Consommation énergétique annuelle en kilo Watt heure d'énergie primaire par an", 500, 100000, 500)
+    consommation_energie = consommation/surface
     year = st.text_input("Entrez l'année de construction :")
     type_batiment_options = ["Logement", "Bâtiment collectif", "Maison Individuelle"]
     type_batiment = st.selectbox("Entrez le type de bâtiment dans lequel vous vivez :", type_batiment_options)
@@ -25,23 +26,43 @@ def main():
     # Entrée pour le code commune
     code_commune = st.text_input("Votre code commune", "")
 
+    if get_lettre_dpe(consommation_energie) == 'A':
+        prediction = 1
+    elif get_lettre_dpe(consommation_energie) == 'B':
+        prediction = 2
+    elif get_lettre_dpe(consommation_energie) == 'C':
+        prediction = 3
+    elif get_lettre_dpe(consommation_energie) == 'D':
+        prediction = 4
+    elif get_lettre_dpe(consommation_energie) == 'E':
+        prediction = 5
+    elif get_lettre_dpe(consommation_energie) == 'F':
+        prediction = 6
+    elif get_lettre_dpe(consommation_energie) == 'G':
+        prediction = 7
+
     # Bouton de prédiction
-    if st.button("Prédire"):
+    if st.button("Obtenir mon analyse énergétique"):
         # Obtenir la prédiction
-        prediction = predict_dpe(surface, consommation_energie)
 
         # Afficher la prédiction
-        st.success(f"Votre lettre DPE prédite est : {prediction}")
+
+        st.info(f"La lettre DPE correspondante à votre consommation d'énergie est : {get_lettre_dpe(consommation_energie)}")
+        # Couleur pour la valeur de l'utilisateur
+        user_color = 'rgba(66, 135, 245, 0.8)'  # Bleu
+        other_color = 'rgba(246, 51, 102, 0.8)'  # Rose
 
         # Afficher le graphique global en France
         st.subheader("Graphique France")
         fig_france = testgraph()  # Utiliser testgraph avec ou sans code commune
+        fig_france.update_traces(marker_color=[user_color if col == prediction else other_color for col in fig_france.data[0].x])
         st.plotly_chart(fig_france)
 
         # Afficher le graphique en fonction du département
         if code_commune:
             st.subheader(f"Comparez votre bien à ceux de votre commune {code_commune}")
             fig_departement = testgraph(code_commune=code_commune)
+            fig_departement.update_traces(marker_color=[user_color if col == prediction else other_color for col in fig_departement.data[0].x])
             st.plotly_chart(fig_departement)
 
         # Afficher les graphiques par année de construction
@@ -55,7 +76,12 @@ def main():
                 st.subheader(f"Comparez votre bien à ceux construits entre 1976 et 2000")
             elif year_ >= 2001:
                 st.subheader(f"Comparez votre bien à ceux construits après 2000")
+
+            # Ajouter la personnalisation de la couleur pour la colonne de l'utilisateur
             fig_annee = par_annee(year=year)
+            for trace in fig_annee.data:
+                trace.update(marker_color=[user_color if col == prediction else other_color for col in trace.x])
+
             st.plotly_chart(fig_annee)
 
 # Lancer l'application
