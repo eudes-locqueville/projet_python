@@ -6,14 +6,17 @@ import joblib
 import folium
 import plotly.express as px
 from clean_donnees import liste_propre
-from graph_test import testgraph, par_annee, filter_data_by_year, get_lettre_dpe
-from geo import map_number_to_letter, interactive_map_dpe
+from details.graph_test import testgraph, par_annee, filter_data_by_year, get_lettre_dpe
+from details.geo import map_number_to_letter, interactive_map_dpe
 from streamlit_folium import folium_static
 import numpy as np
 from modelisation_propre import estimation_lettre
+import os 
 
 # Charger le scaler préalablement entraîné
-scaler_path = "scaler.pkl"
+folder_path = "details"
+scaler_filename = "scaler.pkl"
+scaler_path = os.path.join(folder_path, scaler_filename)
 scaler = joblib.load(scaler_path)
 
 def testgraph(code_commune=None, taille_echantillon=3000):
