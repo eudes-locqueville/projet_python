@@ -34,11 +34,12 @@ data_reg  = data_reg .drop(['tr002_type_batiment_description',
                             'geo_adresse',
                             '_id',
                             'departement',
-                            'classe_consommation_energie'], 
+                            'classe_consommation_energie',
+                            'estimation_ges'], 
                             axis=1)
 
 
-X= data_reg.drop(['estimation_ges'], axis=1)
+X= data_reg.drop(['classe_estimation_ges'], axis=1)
 y = data_reg['classe_estimation_ges']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -73,7 +74,5 @@ def estimation_lettre(consommation_energie, surface, annee_construction, type_ba
     else :
         return letters[str(int(np.ceil(approx)))]
 
-
-%matplotlib inline
 
 xgb.plot_importance(model, ax=plt.gca(), max_num_features=20)
