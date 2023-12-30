@@ -22,7 +22,7 @@ def get_lettre_dpe(consommation_energie):
 
 def filter_data_by_year(data, year):
     datac = data.copy()
-    if year is not None and year.isdigit():
+    if year is not None and str(year).isdigit():
         year = int(year)
     datac['annee_construction'] = datac['annee_construction'].astype(int)
     if year is not None:

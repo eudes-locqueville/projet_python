@@ -10,3 +10,5 @@ descartes
 streamlit
 scikit-learn
 joblib
+os
+streamlit_folium

@@ -31,7 +31,7 @@ def main():
     type_batiment_options = ["Logement", "Bâtiment collectif", "Maison Individuelle"]
     type_batiment = st.selectbox("Entrez le type de bâtiment dans lequel vous vivez :", type_batiment_options)
     # Entrée pour le code commune
-    code_commune = st.text_input("Votre code commune", "")
+    code_commune = st.text_input("Votre numéro de département", "")
     if get_lettre_dpe(consommation_energie) == 'A':
         prediction = 1
     elif get_lettre_dpe(consommation_energie) == 'B':

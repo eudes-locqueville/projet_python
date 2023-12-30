@@ -66,7 +66,10 @@ def estimation_lettre(consommation_energie, surface, annee_construction, type_ba
     data['tr002_type_batiment_description_Logement'] = [1] if type_batiment == 'Logement' else [0]
     data['tr002_type_batiment_description_Maison Individuelle'] = [1] if type_batiment == 'Maison individuelle' else [0]
     data[f'departement_{departement}'] = [1]
-
+    try:
+        data.drop('departement_', axis=1, inplace=True)
+    except:
+        pass
     approx = model.predict(data)[0]
     letters = {'1': 'A', '2': 'B', '3': 'C', '4': 'D', '5': 'E', '6': 'F', '7': 'G'}
     if approx- np.floor(approx) < 0.5 :
