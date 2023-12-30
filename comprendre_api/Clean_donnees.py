@@ -23,5 +23,7 @@ def liste_propre(code_commune=None, taille_echantillon=3000):
     # Afficher le DataFrame après les remplacements
     return tableau_propre
 
-# Appeler la fonction
-df = liste_propre()
+
+
+
+

@@ -2,10 +2,14 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import joblib
+import folium
 import plotly.express as px
 from Clean_donnees import liste_propre
 from regression import predict_dpe
 from graph_test import testgraph, par_annee, filter_data_by_year, get_lettre_dpe
+from geo import map_number_to_letter, interactive_map_dpe
+from streamlit_folium import folium_static
+import numpy as np
 
 # Charger le scaler préalablement entraîné
 scaler_path = "scaler.pkl"
@@ -53,7 +57,7 @@ def main():
         other_color = 'rgba(246, 51, 102, 0.8)'  # Rose
 
         # Afficher le graphique global en France
-        st.subheader("Graphique France")
+        st.subheader("Comparez vos biens aux autres biens en France")
         fig_france = testgraph()  # Utiliser testgraph avec ou sans code commune
         fig_france.update_traces(marker_color=[user_color if col == prediction else other_color for col in fig_france.data[0].x])
         st.plotly_chart(fig_france)
@@ -83,6 +87,10 @@ def main():
                 trace.update(marker_color=[user_color if col == prediction else other_color for col in trace.x])
 
             st.plotly_chart(fig_annee)
+
+            st.subheader("Carte interactive")
+            donnees = liste_propre(code_commune, taille_echantillon=3000)
+            folium_static(interactive_map_dpe(donnees))
 
 # Lancer l'application
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 import folium
 from streamlit_folium import folium_static
 from Clean_donnees import liste_propre
+import numpy as np
 
 def map_number_to_letter(number):
     # Mapper les valeurs numériques aux lettres correspondantes (A pour 1, B pour 2, etc.)
@@ -14,8 +15,8 @@ def interactive_map_dpe(dpe):
 
     m = folium.Map(location=center, tiles='OpenStreetMap')
 
-    # Ajouter un marqueur un par un sur la carte
-    for i in range(0, min(100, len(dpe))):  # Afficher seulement les 100 premières lignes
+    random_indices = np.random.choice(len(dpe), min(300, len(dpe)), replace=False)
+    for i in random_indices:  # Afficher seulement les 100 premières lignes
         # Convertir la valeur numérique en chaîne et mapper à la lettre correspondante
         classe_energie = map_number_to_letter(int(dpe.iloc[i]['classe_consommation_energie']))
 
