@@ -3,9 +3,13 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import joblib
+import folium
 import plotly.express as px
 from Clean_donnees import liste_propre
 from graph_test import testgraph, par_annee, filter_data_by_year, get_lettre_dpe
+from geo import map_number_to_letter, interactive_map_dpe
+from streamlit_folium import folium_static
+import numpy as np
 from modelisation_propre import estimation_lettre
 
 # Charger le scaler préalablement entraîné
@@ -101,7 +105,7 @@ def main():
         other_color = 'rgba(246, 51, 102, 0.8)'  # Rose
 
         # Afficher le graphique global en France
-        st.subheader("Graphique France")
+        st.subheader("Comparez vos biens aux autres biens en France")
         fig_france = testgraph()  # Utiliser testgraph avec ou sans code commune
         fig_france.update_traces(marker_color=[user_color if col == prediction else other_color for col in fig_france.data[0].x])
         st.plotly_chart(fig_france)
@@ -131,23 +135,6 @@ def main():
                 trace.update(marker_color=[user_color if col == prediction else other_color for col in trace.x])
 
             st.plotly_chart(fig_annee)
-
-                
-            # fig_annee = par_annee(year=year)
-            # for trace in fig_annee.data:
-            #     trace.update(marker_color=[user_color if col == prediction else other_color for col in trace.x])
-            
-            # fig_annee.update_layout(
-            #     title='Distribution des classes de consommation d\'énergie pour les années sélectionnées',
-            #     labels={'classe_consommation_energie': 'Classe de Consommation d\'Énergie', 'Count': 'Nombre'},
-            #     opacity=0.8,
-            #     width=800,
-            #     height=500,
-            #     font=dict(family="Arial", size=12, color="black"),
-            #     paper_bgcolor="white",
-            #     plot_bgcolor="white")
-
-            # st.plotly_chart(fig_annee)
 
 # Lancer l'application
 if __name__ == "__main__":
