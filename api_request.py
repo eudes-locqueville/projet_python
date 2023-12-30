@@ -14,7 +14,8 @@ def liste_donnees(code_commune=None,taille_echantillon=3000):
         ]),
         "q": f"code_insee_commune_actualise:{code_commune}" if code_commune else None,
     }
-
+        # la commande q est celle qui permet d'imposer de nombreuses conditions comme celle
+        # très utile de choisir la commune à laquelle on veut s'intéresser.
     url_lines = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-france/lines"
 
     response_lines = requests.get(url_lines, params=params_lines)
@@ -37,14 +38,11 @@ def liste_donnees(code_commune=None,taille_echantillon=3000):
                 'latitude': entry.get('latitude'),
                 'longitude': entry.get('longitude'),
                 'geo_adresse': entry.get('geo_adresse'),
-                # Ajoutez d'autres colonnes pertinentes selon vos besoins
+                # cf. documentation de l'API. On est en train d'extraire les données qui nous
+                # seront utiles pour la suite
             }
             for entry in data_lines['results']
         ])
-
-        # Enregistrez le DataFrame au format Excel avec le nom de fichier 'donnees_associées.xlsx'
-        #filename = f'liste_finale_{code_commune}.xlsx' if code_commune else 'liste_finale_France.xlsx'
-        #df.to_excel(filename, index=False)
 
         return df
 
