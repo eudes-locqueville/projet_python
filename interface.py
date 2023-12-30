@@ -18,7 +18,7 @@ scaler_filename = "scaler.pkl"
 scaler_path = os.path.join(folder_path, scaler_filename)
 scaler = joblib.load(scaler_path)
 
-# Charger le scaler préalablement entraîné
+# On commence par charger le scaler entraîné au préalable
 
 # Interface Streamlit
 def main():
@@ -30,7 +30,6 @@ def main():
     year = st.number_input("Entrez l'année de construction :")
     type_batiment_options = ["Logement", "Bâtiment collectif", "Maison Individuelle"]
     type_batiment = st.selectbox("Entrez le type de bâtiment dans lequel vous vivez :", type_batiment_options)
-    # Entrée pour le code commune
     code_commune = st.text_input("Entrez votre numéro de commune", "")
     code_departement = code_commune[:1]
     if get_lettre_dpe(consommation_energie) == 'A':
@@ -50,26 +49,25 @@ def main():
     # Bouton de prédiction
     ges = estimation_lettre(consommation_energie, surface, year, type_batiment, code_departement)    
     if st.button("Obtenir mon analyse énergétique"):
-        # Obtenir la prédiction
-        # Afficher la prédiction
+        # On affiche le DPE calculé et la prédiction grâce au modèle
         st.info(f"La lettre DPE correspondante à votre consommation d'énergie est : {get_lettre_dpe(consommation_energie)}")
         st.info(f"Compte tenu des informations entrées, nous estimons votre note d'émission de gaz à effet de serre à : {ges}")
         # Couleur pour la valeur de l'utilisateur
         user_color = 'rgba(66, 135, 245, 0.8)'  # Bleu
         other_color = 'rgba(246, 51, 102, 0.8)'  # Rose
 
-        # Afficher le graphique global en France
+        # Graphique global en France
         st.subheader("Comparez vos biens aux autres biens en France")
         fig_france = testgraph()  # Utiliser testgraph avec ou sans code commune
         fig_france.update_traces(marker_color=[user_color if col == prediction else other_color for col in fig_france.data[0].x])
         st.plotly_chart(fig_france)
-        # Afficher le graphique en fonction du département
+        # Graphique en fonction du département
         if code_commune:
             st.subheader(f"Comparez votre bien à ceux de votre commune {code_commune}")
             fig_departement = testgraph(code_commune=code_commune)
             fig_departement.update_traces(marker_color=[user_color if col == prediction else other_color for col in fig_departement.data[0].x])
             st.plotly_chart(fig_departement)
-        # Afficher les graphiques par année de construction
+        # Graphiques par année de construction
         if year:
             year_ = int(year)
             if year_ <= 1945:
@@ -80,7 +78,7 @@ def main():
                 st.subheader(f"Comparez votre bien à ceux construits entre 1976 et 2000")
             elif year_ >= 2001:
                 st.subheader(f"Comparez votre bien à ceux construits après 2000")
-            # Ajouter la personnalisation de la couleur pour la colonne de l'utilisateur
+            # Personnalisation de la couleur pour la colonne de l'utilisateur
             fig_annee = par_annee(year=year)
             for trace in fig_annee.data:
                 trace.update(marker_color=[user_color if col == prediction else other_color for col in trace.x])
