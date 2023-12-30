@@ -59,7 +59,13 @@ def testgraph(code_commune=None, taille_echantillon=3000):
                  width=800,
                  height=500,
                  labels={'Percentage': 'Percentage'})
-
+    
+    fig.update_layout(
+    margin=dict(l=20, r=20, t=50, b=20),
+    font=dict(family="Arial", size=12, color="black"),
+    paper_bgcolor="white",
+    plot_bgcolor="white"
+    )
     return go.Figure(fig)
 
 def par_annee(code_commune=None, taille_echantillon=3000, year=None):
@@ -82,6 +88,13 @@ def par_annee(code_commune=None, taille_echantillon=3000, year=None):
                  width=800,
                  height=500,
                  labels={'Percentage': 'Percentage'})
+    fig.update_layout(
+    margin=dict(l=20, r=20, t=50, b=20),
+    font=dict(family="Arial", size=12, color="black"),
+    paper_bgcolor="white",
+    plot_bgcolor="white"
+    )
+
 
     return go.Figure(fig)
 
