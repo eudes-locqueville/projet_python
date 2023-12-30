@@ -7,7 +7,7 @@ import folium
 import plotly.express as px
 from clean_donnees import liste_propre
 from details.graph_test import testgraph, par_annee, filter_data_by_year, get_lettre_dpe
-from details.geo import map_number_to_letter, interactive_map_dpe
+from geo import map_number_to_letter, interactive_map_dpe
 from streamlit_folium import folium_static
 import numpy as np
 from modelisation_propre import estimation_lettre
@@ -119,6 +119,10 @@ def main():
                 trace.update(marker_color=[user_color if col == prediction else other_color for col in trace.x])
 
             st.plotly_chart(fig_annee)
+
+            st.subheader("Carte interactive")
+            donnees = liste_propre(code_commune, taille_echantillon=3000)
+            folium_static(interactive_map_dpe(donnees))
 
 # Lancer l'application
 if __name__ == "__main__":
