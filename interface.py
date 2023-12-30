@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import joblib
-import folium
 import plotly.express as px
 from clean_donnees import liste_propre
 from details.graph_test import testgraph, par_annee, filter_data_by_year, get_lettre_dpe
@@ -82,7 +81,6 @@ def main():
         prediction = estimation_lettre(consommation_energie, surface, int(year), type_batiment, code_commune)
         
         # Afficher la prédiction
-
         st.info(f"La lettre DPE correspondante à votre consommation d'énergie est : {get_lettre_dpe(consommation_energie)}")
         # Couleur pour la valeur de l'utilisateur
         user_color = 'rgba(66, 135, 245, 0.8)'  # Bleu
