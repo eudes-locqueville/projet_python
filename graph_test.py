@@ -4,7 +4,11 @@ from clean_donnees import liste_propre
 import streamlit as st
 import plotly.graph_objs as go
 
+#Ici on crée les graphiques qu'on représentera dans le site streamlit et
+#qui permettront à l'utilisateur d'analyser le DPE de son bien.
+
 def get_lettre_dpe(consommation_energie):
+    #Fonction toute simple pour délimiter les notes DPE (selon sa définition)
     if consommation_energie < 50:
         return 'A'
     elif 51 <= consommation_energie <= 90:
@@ -21,6 +25,8 @@ def get_lettre_dpe(consommation_energie):
         return 'G'
 
 def filter_data_by_year(data, year):
+    #On crée une fonction qui servira pour un graphique ultérieur. On sélectionne uniquement
+    #les biens construits à un certain moment, selon les périodes définies ci-dessous.
     datac = data.copy()
     if year is not None and str(year).isdigit():
         year = int(year)
@@ -37,6 +43,8 @@ def filter_data_by_year(data, year):
     return datac
 
 def testgraph(code_commune=None, taille_echantillon=3000):
+    #Graphique qui s'intéresse aux notes moyennes en France ou dans une commune donnée ;
+    #Avec un échantillon de 3000, on a un résultat assez précis statistiquement.
     data = liste_propre(code_commune, taille_echantillon)
     value_counts = data['classe_consommation_energie'].value_counts(normalize=True).reset_index()
     value_counts.columns = ['classe_consommation_energie', 'Percentage']
@@ -55,6 +63,10 @@ def testgraph(code_commune=None, taille_echantillon=3000):
     return go.Figure(fig)
 
 def par_annee(code_commune=None, taille_echantillon=3000, year=None):
+    #Création d'un graphique qui permettra à l'utilisateur de comparer son bien
+    #Aux biens construits à la même époque. Cela permet de réaliser si des rénovations
+    #Sont à envisager ou si, au contraire, on est dans les temps / en avance en termes
+    #De normes environnementales.
     data = liste_propre(code_commune, taille_echantillon)
     data = filter_data_by_year(data, year)
     value_counts = data['classe_consommation_energie'].value_counts(normalize=True).reset_index()
