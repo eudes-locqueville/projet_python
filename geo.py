@@ -1,6 +1,6 @@
 import folium
 from streamlit_folium import folium_static
-from Clean_donnees import liste_propre
+from clean_donnees import liste_propre
 import numpy as np
 
 def map_number_to_letter(number):

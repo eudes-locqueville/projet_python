@@ -16,25 +16,6 @@ from modelisation_propre import estimation_lettre
 scaler_path = "scaler.pkl"
 scaler = joblib.load(scaler_path)
 
-# Fonction pour générer la figure avec Plotly
-# def testgraph(code_commune=None, taille_echantillon=3000):
-#     data = liste_propre(code_commune, taille_echantillon)
-#     value_counts = data['classe_consommation_energie'].value_counts().reset_index()
-#     value_counts.columns = ['classe_consommation_energie', 'Count']
-
-#     fig = px.bar(value_counts, 
-#                  x='classe_consommation_energie', 
-#                  y='Count', 
-#                  title='Value Counts of classe_consommation_energie',
-#                  template='plotly_dark',
-#                  color_discrete_sequence=['#F63366'],
-#                  background_color='rgba(0,0,0,0)',
-#                  opacity=0.8,
-#                  width=800,
-#                  height=500)
-    
-    # return fig
-
 def testgraph(code_commune=None, taille_echantillon=3000):
     data = liste_propre(code_commune, taille_echantillon)
     value_counts = data['classe_consommation_energie'].value_counts().reset_index()
