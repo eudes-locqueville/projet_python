@@ -1,5 +1,9 @@
 # projet_python
-Titre du projet
+
+Tous les packages nécessaires au bon fonctionnement du code se trouvent dans le dossier requirements.txt.
+stats_desc présente un ensemble de statistiques descriptives concernant la base de données.
+Le contenu du projet se trouve dans interface.py. Le fichier contient le code qui permettra d'accéder à l'interface streamlit. Les autres fichiers sont simplement des fichiers intermédiaires permettant de faire fonctionner le code final.
+
 
 Objectif du projet: 
 
