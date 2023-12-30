@@ -1,6 +1,6 @@
 import plotly.express as px
 import pandas as pd
-from Clean_donnees import liste_propre
+from clean_donnees import liste_propre
 import streamlit as st
 import plotly.graph_objs as go
 

@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 import joblib
 import folium
 import plotly.express as px
-from Clean_donnees import liste_propre
+from clean_donnees import liste_propre
 from graph_test import testgraph, par_annee, filter_data_by_year, get_lettre_dpe
 from geo import map_number_to_letter, interactive_map_dpe
 from streamlit_folium import folium_static
