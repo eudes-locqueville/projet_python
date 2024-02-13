@@ -1,4 +1,4 @@
-# projet_python
+# projet_python (18,5/20)
 
 Tous les packages nécessaires au bon fonctionnement du code se trouvent dans le dossier requirements.txt.
 stats_desc présente un ensemble de statistiques descriptives concernant la base de données.
